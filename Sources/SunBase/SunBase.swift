@@ -21,7 +21,7 @@ public final class SunBase {
 }
 
 
-class SunLabel: UILabel {
+public final class SunLabel: UILabel {
     private var padding: UIEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: 0)
     
     public func padding(top: CGFloat,left: CGFloat,bottom: CGFloat,right: CGFloat) {
