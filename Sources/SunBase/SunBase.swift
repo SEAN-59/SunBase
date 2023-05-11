@@ -101,7 +101,7 @@ public extension UIView {
     private func makeToast(message: String) -> SunLabel {
         let label: SunLabel = {
             let label = SunLabel()
-            label.padding(top: 10, left: 10, bottom: 10, right: 10)
+            label.padding(top: 50, left: 50, bottom: 50, right: 50)
             label.backgroundColor = .black.withAlphaComponent(0.5)
             label.textColor = .white
             label.font = UIFont.systemFont(ofSize: 20.0)
