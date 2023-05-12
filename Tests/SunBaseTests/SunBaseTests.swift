@@ -8,5 +8,7 @@ final class SunBaseTests: XCTestCase {
         // results.
 //        XCTAssertEqual(SunBase().text, "Hello, World!")
 //        XCTAssertEqual(SunBase().text, "GOOD")
+        print(SunBase().text)
+//        SunBase().
     }
 }

@@ -10,7 +10,7 @@ typealias originX = CGPoint
 //    private var isToastOn: Bool = false
 //
 //    public private(set) var text = "Hello, World!"
-//
+//ㄴㅇㄴㅇㄴㅇㄴㅇㄴ
 //    public init() {}
 //
 //
@@ -20,23 +20,8 @@ public final class SunBase {
     public private(set) var text = "Hello, World!"
 }
 
-
-
-
-public final class SunLabel: UILabel {
-    private var padding: UIEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: 0)
-    
-    public func padding(top: CGFloat,left: CGFloat,bottom: CGFloat,right: CGFloat) {
-        padding.top = top
-        padding.left = left
-        padding.bottom = bottom
-        padding.right = right
-    }
-//    UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-}
-
-
 public extension UIView {
+    
     enum toastType{
         case simple
         case top
@@ -46,11 +31,14 @@ public extension UIView {
     }
     
     func showToast(message: String, type: toastType = .simple) {
+        var a = 0
         let toast: SunLabel = makeToast(message: message)
         self.addToast(toast)
         switch type{
         case .simple:
             self.simpleToast(toast: toast)
+            a += 1
+            print(a)
         case .top:
             print("up")
         case .down:
@@ -60,6 +48,7 @@ public extension UIView {
         case .left:
             print("up")
         }
+        
     }
     
     private func simpleToast(toast: SunLabel) {
@@ -101,7 +90,7 @@ public extension UIView {
     private func makeToast(message: String) -> SunLabel {
         let label: SunLabel = {
             let label = SunLabel()
-            label.padding(top: 50, left: 50, bottom: 50, right: 50)
+            
             label.backgroundColor = .black.withAlphaComponent(0.5)
             label.textColor = .white
             label.font = UIFont.systemFont(ofSize: 20.0)
@@ -115,7 +104,31 @@ public extension UIView {
             label.clipsToBounds = true
             return label
         }()
+        label.padding(top: 10, left: 10, bottom: 10, right: 10)
         
         return label
+    }
+}
+
+public final class SunLabel: UILabel {
+    private var padding: UIEdgeInsets = UIEdgeInsets()//.init(top: 0, left: 0, bottom: 0, right: 0)
+    
+    public func padding(top: CGFloat,left: CGFloat,bottom: CGFloat,right: CGFloat) {
+        padding.top = top
+        padding.left = left
+        padding.bottom = bottom
+        padding.right = right
+    }
+    
+    public override func drawText(in rect: CGRect) {
+        super.drawText(in: rect.inset(by: padding))
+    }
+    
+    public override var intrinsicContentSize: CGSize {
+        var contentSize = super.intrinsicContentSize
+        contentSize.height += padding.top + padding.bottom
+        contentSize.width += padding.left + padding.right
+
+        return contentSize
     }
 }
