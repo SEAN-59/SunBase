@@ -18,12 +18,12 @@
     
 ### 1. Simple Toast Message
 ```swift
-        showToast(message: String,
-                  type: simpleType = .down,
-                  constatns: CGFloat = 100,
-                  duration: CGFloat = 2.0,
-                  delay:CGFloat = 0.4,
-                  isRepeat: Bool = false)
+    showToast(message: String,
+              type: simpleType = .down,
+              constatns: CGFloat = 100,
+              duration: CGFloat = 2.0,
+              delay:CGFloat = 0.4,
+              isRepeat: Bool = false)
 ```
 - message만 입력해도 기본적으로 하단에 토스트 메세지 띄우는것이 가능하나, 조금 더 디테일한 조정을 위해서는 다른 파라미터들을 입력하면 된다. 
     1. message: 토스트 메세지 내용
@@ -54,18 +54,20 @@
 ### 사용방법
     1. UIButton 오브젝트를 스토리보드, code 등 여러 방법을 통해서 만들어서 배치한다.
     2. 1에서 만든 오브젝트들을 하나의 Array로 묶어준다. (해당 순서는 생략 가능)
-    ```swift
-        let buttonArray: [UIButton] = [firstBtn, secondBtn, thirdBtn]
-    ```
+    
+```swift
+    let buttonArray: [UIButton] = [firstBtn, secondBtn, thirdBtn]
+```
+
     3. SB.radio의 makeRadio 함수의 파라미터들을 통해 1의 오브젝트들을 라디오 버튼의 동작을 하는 버튼으로 전환한다.
     4. RadioButton의 값을 확인하기 위해서는 checkRadioArray 함수를 통해 확인할 수 있다.  
     
 ```swift
-        makeRadio(_ array: [UIButton],
-                    isText: Bool = false,
-                    isRight: Bool = false,
-                    emptyImage: UIImage? = UIImage(systemName: "circle"),
-                    fillImage: UIImage? = UIImage(systemName: "circle.fill")) 
+    makeRadio(_ array: [UIButton],
+                isText: Bool = false,
+                isRight: Bool = false,
+                emptyImage: UIImage? = UIImage(systemName: "circle"),
+                fillImage: UIImage? = UIImage(systemName: "circle.fill")) 
 ```
 - 단순하고 array 파라미터에 들어갈 UIButton array만 넣어준다면 다른 값들은 기본값으로 넣어준대로 동작하며 다른 동작을 위해서는 내부의 파라미터를 변경해주면 된다.
     1. array: Radio button 동작을 할 UIButton array
@@ -83,6 +85,12 @@
 [x] Check Box <br>
 - 라디오 버튼과 90% 가까이 동일한 방법
 - 단, 체크박스의 경우에는 다중 선택이 가능하다는 차이만 존재
+- 그래서 전체 선택과 해제가 가능한 함수가 있음
+
+```swift
+    allCheckBox()
+```
+
 
 [ ] Drop down <br>
 
@@ -140,9 +148,9 @@
     7. cancelTitle: cancel의 제목 = Optional
     8. cancelStyle: cancel의 버튼 타입 = Optional
     9. cancel: cancel 버튼 클릭시 동작할 클로저 = Optional
-    7. destructiveTitle: destructive의 제목 = Optional
-    8. destructiveStyle: destructive의 버튼 타입 = Optional
-    9. destructive: destructive 버튼 클릭시 동작할 클로저 = Optional
+    10. destructiveTitle: destructive의 제목 = Optional
+    11. destructiveStyle: destructive의 버튼 타입 = Optional
+    12. destructive: destructive 버튼 클릭시 동작할 클로저 = Optional
     
 [x] Timer <br>
 - 기능

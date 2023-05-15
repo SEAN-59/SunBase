@@ -109,6 +109,19 @@ public final class SunCheckBox {
         completion(checkArray)
     }
     
+    public func allCheckBox() {
+        if self.checkArray.filter({$0 == true}).count == self.checkArray.count {
+            self.checkArray = self.checkArray.map{ _ in false}
+            self.buttonArray.map {
+                $0.setImage(self.emptyImage, for: .normal)
+            }
+        } else {
+            self.checkArray = self.checkArray.map{ _ in true}
+            self.buttonArray.map {
+                $0.setImage(self.fillImage, for: .normal)
+            }
+        }
+    }
 }
 
 
@@ -227,7 +240,7 @@ public extension UIView {
         }
     }
     
-    func showIndicator(_ time: Double = 5, isTimer: Bool = false) {
+    func showIndicator(_ time: Double = 5, isTimer: Bool = false, completion: ((Bool) -> ())? = nil) {
         let indicator: SunIndicator = makeIndicatorToast()
         self.isUserInteractionEnabled = false
         self.subviews.forEach {
@@ -243,7 +256,9 @@ public extension UIView {
         if isTimer {
             SB.timer.startTimer(time) { isStop in
                 if isStop {
-                    self.stopIndicator()
+                    self.stopIndicator { isDone in
+                        completion?(isDone)
+                    }
                 }
             }
         }
