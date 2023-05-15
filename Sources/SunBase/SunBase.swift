@@ -4,9 +4,148 @@ import UIKit
 import AppKit
 #endif
 
+public typealias SB = SunBase
+//    public private(set) var text = "Hello, World!"
 
 public final class SunBase {
-    //    public private(set) var text = "Hello, World!"
+    public static let radio = SunRadioButton()
+    public static let check = SunCheckBox()
+    public static let drop = SunDropDown()
+    public static let alert = SunAlert()
+    public static let timer = SunTimer.shared
+}
+
+//MARK: - Radio Button
+public final class SunRadioButton {
+    private var buttonArray: [UIButton] = []
+    private var radioArray: [Bool] = []
+    private var emptyImage: UIImage? = nil
+    private var fillImage: UIImage? = nil
+    
+    public func makeRadio(_ array: [UIButton], isText: Bool = false, isRight: Bool = false, emptyImage: UIImage? = UIImage(systemName: "circle"), fillImage: UIImage? = UIImage(systemName: "circle.fill")) {
+        
+        self.buttonArray = array
+        self.emptyImage = emptyImage
+        self.fillImage = fillImage
+        
+        for i in 0 ..< array.count {
+            radioArray.append(false)
+            array[i].tag = i+199459
+        }
+        
+        array.forEach{
+            if isRight {
+                $0.semanticContentAttribute = .forceRightToLeft
+            } else {
+                $0.semanticContentAttribute = .forceLeftToRight
+            }
+            if !isText {
+                $0.setTitle("", for: .normal)
+            }
+            $0.setImage(self.emptyImage, for: .normal)
+            $0.addTarget(self, action: #selector(radioButtonTapped), for: .touchUpInside)
+        }
+    }
+    @objc private func radioButtonTapped(_ sender: UIButton) {
+        let tag = sender.tag - 199459
+        if let tagIndex = self.radioArray.firstIndex(of: true) {
+            self.buttonArray[tagIndex].setImage(self.emptyImage, for: .normal)
+            self.radioArray[tagIndex] = false
+        }
+        
+        self.radioArray[tag] = true
+        self.buttonArray[tag].setImage(self.fillImage, for: .normal)
+    }
+    
+    public func checkRadioArray(completion: (_ radio: [Bool]) -> ()){
+        completion(radioArray)
+    }
+    
+}
+
+//MARK: - Check Box
+public final class SunCheckBox {
+    private var buttonArray: [UIButton] = []
+    private var checkArray: [Bool] = []
+    private var emptyImage: UIImage? = nil
+    private var fillImage: UIImage? = nil
+    
+    public func makeCheck(_ array: [UIButton], isText: Bool = false, isRight: Bool = false, emptyImage: UIImage? = UIImage(systemName: "square"), fillImage: UIImage? = UIImage(systemName: "square.fill")) {
+        
+        self.buttonArray = array
+        self.emptyImage = emptyImage
+        self.fillImage = fillImage
+        
+        for i in 0 ..< array.count {
+            checkArray.append(false)
+            array[i].tag = i+199459
+        }
+        
+        array.forEach{
+            if isRight {
+                $0.semanticContentAttribute = .forceRightToLeft
+            } else {
+                $0.semanticContentAttribute = .forceLeftToRight
+            }
+            if !isText {
+                $0.setTitle("", for: .normal)
+            }
+            $0.setImage(self.emptyImage, for: .normal)
+            $0.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
+        }
+    }
+    
+    @objc private func checkButtonTapped(_ sender: UIButton) {
+        let tag = sender.tag - 199459
+        self.checkArray[tag].toggle()
+        if checkArray[tag] {
+            self.buttonArray[tag].setImage(self.fillImage, for: .normal)
+        } else {
+            self.buttonArray[tag].setImage(self.emptyImage, for: .normal)
+        }
+    }
+    
+    public func checkCheckArray(completion: (_ check: [Bool]) -> ()){
+        completion(checkArray)
+    }
+    
+}
+
+
+//MARK: - DropDown Menu
+public final class SunDropDown {
+    
+}
+
+//MARK: - Alert
+public final class SunAlert {
+    public func show2Type(_ VC: UIViewController, title: String, message: String, okTitle: String = "확인", okStyle: UIAlertAction.Style = .default, ok: ((UIAlertAction)->())?, cancelTitle: String = "취소", cancelStyle: UIAlertAction.Style = .cancel, cancel: ((UIAlertAction)->())? ) {
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        
+        let okAction = UIAlertAction(title: okTitle, style: okStyle, handler: ok)
+        let cancelAction = UIAlertAction(title: cancelTitle, style: cancelStyle, handler: cancel)
+        
+        [okAction, cancelAction].forEach{alertController.addAction($0)}
+        
+        VC.present(alertController, animated: true, completion: nil)
+    }
+    
+    public func show3Type(_ VC: UIViewController, title: String, message: String, okTitle: String = "확인", okStyle: UIAlertAction.Style = .default, ok: ((UIAlertAction)->())?, cancelTitle: String = "취소", cancelStyle: UIAlertAction.Style = .cancel, cancel: ((UIAlertAction)->())?, destructiveTitle: String = "삭제", destructiveStyle: UIAlertAction.Style = .destructive, destructive: ((UIAlertAction)->())? ) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: okTitle, style: okStyle, handler: ok)
+        let cancelAction = UIAlertAction(title: cancelTitle, style: cancelStyle, handler: cancel)
+        let destructiveAction = UIAlertAction(title: destructiveTitle, style: destructiveStyle, handler: destructive)
+        
+        
+        [okAction, cancelAction, destructiveAction].forEach{alertController.addAction($0)}
+        
+        VC.present(alertController, animated: true, completion: nil)
+    }
+    
+    
 }
 
 //MARK: - Timer
@@ -18,7 +157,7 @@ public final class SunTimer {
         
     }
     
-    public func startTimer(interval: Double, repeats: Bool = false, completion: @escaping (_ isStop: Bool) -> ()) {
+    public func startTimer(_ interval: Double, repeats: Bool = false, completion: @escaping (_ isStop: Bool) -> ()) {
         let nowDate = Date()
         
         // 타이머 시작전 다른 타이머가 동작 중이면 중지
@@ -88,7 +227,7 @@ public extension UIView {
         }
     }
     
-    func showIndicator() {
+    func showIndicator(_ time: Double = 5, isTimer: Bool = false) {
         let indicator: SunIndicator = makeIndicatorToast()
         self.isUserInteractionEnabled = false
         self.subviews.forEach {
@@ -100,16 +239,32 @@ public extension UIView {
         indicator.startAnimating()
 
         self.indicatorToast(toast: indicator)
+        
+        if isTimer {
+            SB.timer.startTimer(time) { isStop in
+                if isStop {
+                    self.stopIndicator()
+                }
+            }
+        }
     }
     
-    func stopIndicator() {
+    func stopIndicator(completion: ((Bool)->())? = nil) {
+        var completionType: Bool = false
         self.isUserInteractionEnabled = true
         self.subviews.forEach {
             if $0 is SunIndicator {
                 $0.removeFromSuperview()
+                completionType = true
             }
         }
+        completion?(completionType)
         
+    }
+    
+    private func addToast<T>(_ toast: T) {
+        guard let toast = toast as? UIView else { return }
+        self.addSubview(toast)
     }
     
     //MARK: - Simple Toast Animation
@@ -194,7 +349,7 @@ public extension UIView {
         
     }
     
-    
+    //MARK: - Toast Indicator
     private func indicatorToast(toast: SunIndicator) {
         toast.translatesAutoresizingMaskIntoConstraints = false
         [
@@ -218,11 +373,6 @@ public extension UIView {
             toast.heightAnchor.constraint(equalToConstant: 100)
         ].forEach{$0.isActive = true}
         
-    }
-    
-    private func addToast<T>(_ toast: T) {
-        guard let toast = toast as? UIView else { return }
-        self.addSubview(toast)
     }
     
     private func makeIndicatorToast() -> SunIndicator {
