@@ -67,13 +67,15 @@
                 isText: Bool = false,
                 isRight: Bool = false,
                 emptyImage: UIImage? = UIImage(systemName: "circle"),
-                fillImage: UIImage? = UIImage(systemName: "circle.fill")) 
+                fillImage: UIImage? = UIImage(systemName: "circle.fill"),
+                defaultTarger: Int? = nil) 
 ```
 - 단순하고 array 파라미터에 들어갈 UIButton array만 넣어준다면 다른 값들은 기본값으로 넣어준대로 동작하며 다른 동작을 위해서는 내부의 파라미터를 변경해주면 된다.
     1. array: Radio button 동작을 할 UIButton array
     2. isText: 변환이 이루어진 버튼은 이미지만 존재하고 텍스트는 지워지게 되므로 텍스트를 살리기 위해서 사용 = Optional
     3. isRight: text가 존재하는 경우 이미지와 text간의 배치 변경 가능 = Optional
     4. emptyImage & fillImage: 표시하고자 하는 버튼의 이미지 변경 가능 = Optional
+    5. defaultTarger: 처음 버튼을 만들때 바로 체크를 걸어 둘 수 있으며 array에 넣은 오브젝트의 배열 넘버를 넣으면 됨 (0부터 시작) = Optional
 
 ```swift
     checkRadioArray(completion: (_ radio: [Bool]) -> ())
@@ -86,6 +88,7 @@
 - 라디오 버튼과 90% 가까이 동일한 방법
 - 단, 체크박스의 경우에는 다중 선택이 가능하다는 차이만 존재
 - 그래서 전체 선택과 해제가 가능한 함수가 있음
+- defaultTarger: [Int] = [] 파라미터가 이렇게 배열 방식으로 array에 넣은 오브젝트의 배열 넘버를 적어주면 된다. (0부터 시작) = Optional
 
 ```swift
     allCheckBox()

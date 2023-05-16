@@ -16,13 +16,14 @@ public final class SunBase {
 }
 
 //MARK: - Radio Button
+/// 기본으로 하나 켜지게 할 수 있는 방법이 있으면 좋을 것 같음: CheckBox 또한 마찬가지
 public final class SunRadioButton {
     private var buttonArray: [UIButton] = []
     private var radioArray: [Bool] = []
     private var emptyImage: UIImage? = nil
     private var fillImage: UIImage? = nil
     
-    public func makeRadio(_ array: [UIButton], isText: Bool = false, isRight: Bool = false, emptyImage: UIImage? = UIImage(systemName: "circle"), fillImage: UIImage? = UIImage(systemName: "circle.fill")) {
+    public func makeRadio(_ array: [UIButton], isText: Bool = false, isRight: Bool = false, emptyImage: UIImage? = UIImage(systemName: "circle"), fillImage: UIImage? = UIImage(systemName: "circle.fill"), defaultTarger: Int? = nil) {
         
         self.buttonArray = array
         self.emptyImage = emptyImage
@@ -45,7 +46,13 @@ public final class SunRadioButton {
             $0.setImage(self.emptyImage, for: .normal)
             $0.addTarget(self, action: #selector(radioButtonTapped), for: .touchUpInside)
         }
+        
+        if let target = defaultTarger {
+            array[target].setImage(self.fillImage, for: .normal)
+            self.radioArray[target] = true
+        }
     }
+    
     @objc private func radioButtonTapped(_ sender: UIButton) {
         let tag = sender.tag - 199459
         if let tagIndex = self.radioArray.firstIndex(of: true) {
@@ -70,7 +77,7 @@ public final class SunCheckBox {
     private var emptyImage: UIImage? = nil
     private var fillImage: UIImage? = nil
     
-    public func makeCheck(_ array: [UIButton], isText: Bool = false, isRight: Bool = false, emptyImage: UIImage? = UIImage(systemName: "square"), fillImage: UIImage? = UIImage(systemName: "square.fill")) {
+    public func makeCheck(_ array: [UIButton], isText: Bool = false, isRight: Bool = false, emptyImage: UIImage? = UIImage(systemName: "square"), fillImage: UIImage? = UIImage(systemName: "square.fill"), defaultTarger: [Int] = []) {
         
         self.buttonArray = array
         self.emptyImage = emptyImage
@@ -92,6 +99,11 @@ public final class SunCheckBox {
             }
             $0.setImage(self.emptyImage, for: .normal)
             $0.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
+        }
+        
+        for i in 0 ..< defaultTarger.count {
+            array[defaultTarger[i]].setImage(self.fillImage, for: .normal)
+            self.checkArray[defaultTarger[i]] = true
         }
     }
     
@@ -127,7 +139,29 @@ public final class SunCheckBox {
 
 //MARK: - DropDown Menu
 public final class SunDropDown {
-    
+    public func makeDropDown(_ target: UIButton, _ VC: UIViewController) {
+        var superX: CGFloat = 0
+        var superY: CGFloat = 0
+        var currentView: UIView? = target
+        
+        while currentView != VC.view {
+            if let currentView = currentView {
+                superX += currentView.frame.origin.x
+                superY += currentView.frame.origin.y
+            }
+            currentView = currentView?.superview
+        }
+        
+        print(superX)
+        print(superY)
+        print(VC.view.frame.height)
+//        if VC.view == check {
+//            print("Super!")
+//        } else {
+//            print(check)
+//        }
+//        target.superview
+    }
 }
 
 //MARK: - Alert
