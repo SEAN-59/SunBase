@@ -70,6 +70,7 @@
                 fillImage: UIImage? = UIImage(systemName: "circle.fill"),
                 defaultTarger: Int? = nil) 
 ```
+
 - 단순하고 array 파라미터에 들어갈 UIButton array만 넣어준다면 다른 값들은 기본값으로 넣어준대로 동작하며 다른 동작을 위해서는 내부의 파라미터를 변경해주면 된다.
     1. array: Radio button 동작을 할 UIButton array
     2. isText: 변환이 이루어진 버튼은 이미지만 존재하고 텍스트는 지워지게 되므로 텍스트를 살리기 위해서 사용 = Optional
@@ -80,6 +81,7 @@
 ```swift
     checkRadioArray(completion: (_ radio: [Bool]) -> ())
 ```
+
 - 외부에서 해당 함수 호출시 completion을 통해 현재 radio button으로 선택된 값이 Bool 값으로 나타난다.
 
 - 단, 라디오 버튼으로 사용하는 버튼에 확인하는 이 함수를 같이 동작을 시키게 될 경우 해당 함수는 버튼이 동작하기 전의 값이 출력이 되므로 라디오 버튼으로 사용하는 버튼들에게는 따로 동작을 부여하지 않는것이 좋다.

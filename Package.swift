@@ -11,6 +11,9 @@ let package = Package(
         .library(
             name: "SunBase",
             targets: ["SunBase"]),
+        .library(
+            name: "SunExtension",
+            targets: ["SunExtension"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -21,6 +24,9 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "SunBase",
+            dependencies: []),
+        .target(
+            name: "SunExtension",
             dependencies: []),
         .testTarget(
             name: "SunBaseTests",
