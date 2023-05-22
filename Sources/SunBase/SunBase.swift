@@ -4,20 +4,18 @@ import UIKit
 import AppKit
 #endif
 
-
 public typealias SB = SunBase
 //    public private(set) var text = "Hello, World!"
 
 public final class SunBase {
     public static let radio = SunRadioButton()
     public static let check = SunCheckBox()
-    public static let drop = SunDropDown()
+//    public static let drop = SunDropDown()
     public static let alert = SunAlert()
     public static let timer = SunTimer.shared
 }
 
 //MARK: - Radio Button
-/// 기본으로 하나 켜지게 할 수 있는 방법이 있으면 좋을 것 같음: CheckBox 또한 마찬가지
 public final class SunRadioButton {
     private var buttonArray: [UIButton] = []
     private var radioArray: [Bool] = []
@@ -125,21 +123,24 @@ public final class SunCheckBox {
     public func allCheckBox() {
         if self.checkArray.filter({$0 == true}).count == self.checkArray.count {
             self.checkArray = self.checkArray.map{ _ in false}
-            self.buttonArray.map {
+            _ = self.buttonArray.map {
                 $0.setImage(self.emptyImage, for: .normal)
             }
         } else {
             self.checkArray = self.checkArray.map{ _ in true}
-            self.buttonArray.map {
+            _ = self.buttonArray.map {
                 $0.setImage(self.fillImage, for: .normal)
             }
         }
     }
 }
 
-
 //MARK: - DropDown Menu
+/*
 public final class SunDropDown {
+    
+    private var tableView: UITableView = UITableView()
+    
     public func makeDropDown(_ target: UIButton, _ VC: UIViewController) {
         var superX: CGFloat = 0
         var superY: CGFloat = 0
@@ -158,6 +159,7 @@ public final class SunDropDown {
         print(VC.view.frame.height)
     }
 }
+ */
 
 //MARK: - Alert
 public final class SunAlert {
@@ -236,3 +238,5 @@ public final class SunTimer {
     }
     
 }
+
+
