@@ -6,17 +6,76 @@ import AppKit
 
 import SunBase
 
-enum simpleType{
-    case top
-    case down
-}
-
 public final class SunExtension {
     
 }
 
+//MARK: - String
+public extension String {
+    
+    func cut(start: Int, end: Int) -> String {
+        let startIndex = self.index(self.startIndex,offsetBy: start)
+        let endIndex = self.index(self.startIndex,offsetBy: end)
+        let result: String = "\(self[startIndex ..< endIndex])"
+        return result
+    }
+    
+    func letter() -> [String] {
+        return self.map { String($0) }
+    }
+    
+    func word() -> [String] {
+        return self.components(separatedBy: " ")
+    }
+}
+
+
+//MARK: - Collection
+public extension Collection {
+    func sumArray<T>(_ someThing: T) -> Array<String> {
+        if someThing is Array<Any> {
+            if self is Array<String> {
+                // String 일 경우에는 아무 상관 없이 그냥 붙여 버리면 그만
+                if var selfValue = self as? Array<String> {
+                    if let some = someThing as? Array<String> {
+                        _ = some.map{ selfValue.append($0)}
+                        return selfValue
+                    }
+                }
+            } else if type(of: self) == type(of: someThing) {
+                // 그외의 경우에는 같을 경우에만 붙어지게 해 둠
+//                print(self + someThing)
+//                self.map{$0.}
+//                if var selfValue = self as? Array<String> {
+//                    print(selfValue.append("\(someThing)"))
+//
+//                }
+            } else {
+                
+            }
+        }
+        
+//            print()}
+//        print(type(of: someThing))
+//        print((any Collection).self))
+//        print(type(of: (any Collection).self))
+//        if type(of:someThing) == (any Collection).self {
+//            
+//        }
+        
+//        if type(of: self) == type(of: [String]()) {
+            
+//        }
+        return [""]
+    }
+}
+
 //MARK: - TOAST MESSAGE
 public extension UIView {
+    enum simpleType{
+        case top
+        case down
+    }
     
     func showToast(message: String, type: simpleType = .down, constatns: CGFloat = 100, duration: CGFloat = 2.0, delay:CGFloat = 0.4 ,isRepeat: Bool = false) {
         var isSunLabel: Bool = false
