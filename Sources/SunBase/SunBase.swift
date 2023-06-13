@@ -163,6 +163,18 @@ public final class SunDropDown {
 
 //MARK: - Alert
 public final class SunAlert {
+    public func show1Type(_ VC: UIViewController, title: String, message: String, okTitle: String = "확인", okStyle: UIAlertAction.Style = .default, ok: ((UIAlertAction)->())?) {
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        
+        let okAction = UIAlertAction(title: okTitle, style: okStyle, handler: ok)
+        
+        [okAction].forEach{alertController.addAction($0)}
+        
+        VC.present(alertController, animated: true, completion: nil)
+    }
+    
     public func show2Type(_ VC: UIViewController, title: String, message: String, okTitle: String = "확인", okStyle: UIAlertAction.Style = .default, ok: ((UIAlertAction)->())?, cancelTitle: String = "취소", cancelStyle: UIAlertAction.Style = .cancel, cancel: ((UIAlertAction)->())? ) {
         
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
