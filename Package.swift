@@ -10,10 +10,13 @@ let package = Package(
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "SunBase",
-            targets: ["SunBase"]),
+            targets: ["SunBase","SunCalendar"]),
         .library(
             name: "SunExtension",
             targets: ["SunExtension"]),
+//        .library(
+//            name: "SunCalendar",
+//            targets: ["SunCalendar"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -27,6 +30,9 @@ let package = Package(
             dependencies: []),
         .target(
             name: "SunExtension",
+            dependencies: []),
+        .target(
+            name: "SunCalendar",
             dependencies: []),
         .testTarget(
             name: "SunBaseTests",
