@@ -13,7 +13,63 @@ public final class SunBase {
 //    public static let drop = SunDropDown()
     public static let alert = SunAlert()
     public static let timer = SunTimer.shared
+    public static let device = SunCheckDevice()
+    
+    public static let button = SunButton()
 }
+
+//
+
+public final class SunCheckDevice {
+    // SEAN - 앱 무결성 탈옥 검사
+    /// 앱 탈옥 기기 여부 확인 (true 반환시 문제가 있는것)
+    public func checkDevice() -> Bool {
+        var result = false
+        
+        // 시뮬레이터 구동 시 true 반환
+        func isSimulator() -> Bool {
+            return ProcessInfo.processInfo.environment["SIMULATOR_DEVICE_NAME"] != nil
+        }
+        
+        func canOpen(path: String) -> Bool {
+            let file = fopen(path, "r")
+            guard file != nil else { return false }
+            fclose(file)
+            return true
+        }
+        
+        
+        if !(isSimulator()) {
+            let nsFileManager = FileManager.default
+            guard let cydiaURL = NSURL(string: "cydia://package/com.example.package") else { return result}
+            
+            if nsFileManager.fileExists(atPath: "/Applications/Cydia.app") || nsFileManager.fileExists(atPath: "/Library/MobileSubstrate/MobileSubstrate.dylib") || nsFileManager.fileExists(atPath: "/bin/bash") || nsFileManager.fileExists(atPath: "/usr/sbin/sshd") || nsFileManager.fileExists(atPath: "/etc/apt") || nsFileManager.fileExists(atPath: "/private/var/lib/apt/") || UIApplication.shared.canOpenURL(cydiaURL as URL)  {
+                result = true
+            }
+            
+            if canOpen(path: "/bin/bash") || canOpen(path: "/Applications/Cydia.app") || canOpen(path: "/Library/MobileSubstrate/MobileSubstrate.dylib") || canOpen(path: "/usr/sbin/sshd") || canOpen(path:  "/etc/apt") {
+                result = true
+            }
+            
+            let jailbreakPath = "/private/jailbreak.txt"
+            
+            do {
+                try "Jailbreak_Test".write(toFile: jailbreakPath, atomically: true, encoding: String.Encoding.utf8)
+                result = true
+            } catch {
+                do {
+                    try nsFileManager.removeItem(atPath: jailbreakPath)
+                } catch {
+                    print("[ERROR] remove Jailbreak_test: \(error)")
+                }
+            }
+            
+        }
+        
+        return result
+    }
+}
+
 
 //MARK: - Radio Button
 public final class SunRadioButton {
