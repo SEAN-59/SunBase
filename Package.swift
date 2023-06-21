@@ -11,9 +11,9 @@ let package = Package(
         .library(
             name: "SunBase",
             targets: ["SunBase","SunCalendar"]),
-        .library(
-            name: "SunExtension",
-            targets: ["SunExtension"]),
+//        .library(
+//            name: "SunExtension",
+//            targets: ["SunExtension"]),
 //        .library(
 //            name: "SunCalendar",
 //            targets: ["SunCalendar"]),

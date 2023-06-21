@@ -31,6 +31,9 @@ public extension String {
 
 
 //MARK: - Collection
+
+/*
+/// 이거 관련서는 일단 보류
 public extension Collection {
     func sumArray<T>(_ someThing: T) -> Array<String> {
         if someThing is Array<Any> {
@@ -69,13 +72,16 @@ public extension Collection {
         return [""]
     }
 }
+ 
+ */
 
 //MARK: - TOAST MESSAGE
+enum simpleType{
+    case top
+    case down
+}
+
 public extension UIView {
-    enum simpleType{
-        case top
-        case down
-    }
     
     func showToast(message: String, type: simpleType = .down, constatns: CGFloat = 100, duration: CGFloat = 2.0, delay:CGFloat = 0.4 ,isRepeat: Bool = false) {
         var isSunLabel: Bool = false
