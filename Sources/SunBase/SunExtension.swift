@@ -392,6 +392,7 @@ public extension String {
         } else {
             result = false
         }
+        
         return result
     }
     
