@@ -265,11 +265,15 @@ public final class SunTimer {
     public static let shared = SunTimer()
     private var timer = Timer()
     
+    public enum TimerError: Error{
+        case TimerError
+    }
+    
     private init() {
         
     }
     
-    public func startTimer(_ interval: Double, repeats: Bool = false, completion: @escaping (_ isStop: Bool) -> ()) {
+    public func startTimer(_ interval: Double, repeats: Bool = false, completion: @escaping (Result<()?,TimerError>) -> ()) {
         let nowDate = Date()
         
         // 타이머 시작전 다른 타이머가 동작 중이면 중지
@@ -288,9 +292,9 @@ public final class SunTimer {
                 // 정지는 되었겠지만 그래도 혹시 몰라서
                 weakSelf.timer.invalidate()
                 print("TIMER_END")
-                completion(true)
+                completion(.success(nil))
             } else {
-                completion(false)
+                completion(.failure(.TimerError))
             }
         })
     }

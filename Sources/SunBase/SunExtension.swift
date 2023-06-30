@@ -77,13 +77,22 @@ public extension UIView {
         self.indicatorToast(toast: indicator)
         
         if isTimer {
-            SB.timer.startTimer(time) { isStop in
-                if isStop {
-                    self.stopIndicator { isDone in
-                        completion?(isDone)
-                    }
+            SB.timer.startTimer(time) { result in
+                switch result {
+                case .success(_):
+                    completion?(true)
+                    print("b")
+                case .failure(_):
+                    completion?(false)
                 }
             }
+//            SB.timer.startTimer(time) { isStop in
+//                if isStop {
+//                    self.stopIndicator { isDone in
+//                        completion?(isDone)
+//                    }
+//                }
+//            }
         }
     }
     
