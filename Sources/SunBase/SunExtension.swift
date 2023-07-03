@@ -589,7 +589,7 @@ public final class SunButton: UIButton {
 }
 
 //MARK: - SunView
-public final class SunView: UIView {
+public class SunView: UIView {
     public override init(frame: CGRect) {
         super.init(frame: frame)
         self.loadNib()
