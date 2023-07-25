@@ -219,6 +219,44 @@ public final class SunDropDown {
 
 //MARK: - Alert
 public final class SunAlert {
+    public func alertOneBtn(_ VC: UIViewController, title: String, message: String, firstTitle: String, firstStyle: UIAlertAction.Style = .default, firstHandler: ((UIAlertAction)->())?) {
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        
+        let firstAction = UIAlertAction(title: firstTitle, style: firstStyle, handler: firstHandler)
+        
+        [firstAction].forEach{alertController.addAction($0)}
+        
+        VC.present(alertController, animated: true, completion: nil)
+    }
+    
+    public func alertTwoBtn(_ VC: UIViewController, title: String, message: String, firstTitle: String, firstStyle: UIAlertAction.Style = .default, firstHandler: ((UIAlertAction)->())?, secondTitle: String, secondStyle: UIAlertAction.Style = .default, secondHandler: ((UIAlertAction)->())?) {
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let firstAction = UIAlertAction(title: firstTitle, style: firstStyle, handler: firstHandler)
+        let secondAction = UIAlertAction(title: secondTitle, style: secondStyle, handler: secondHandler)
+        
+        [firstAction, secondAction].forEach{alertController.addAction($0)}
+        
+        VC.present(alertController, animated: true, completion: nil)
+    }
+    
+    public func alertThreeBtn(_ VC: UIViewController, title: String, message: String, firstTitle: String, firstStyle: UIAlertAction.Style = .default, firstHandler: ((UIAlertAction)->())?, secondTitle: String, secondStyle: UIAlertAction.Style = .default, secondHandler: ((UIAlertAction)->())?, thirdTitle: String, thirdStyle: UIAlertAction.Style = .default, thirdHandler: ((UIAlertAction)->())?) {
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let firstAction = UIAlertAction(title: firstTitle, style: firstStyle, handler: firstHandler)
+        let secondAction = UIAlertAction(title: secondTitle, style: secondStyle, handler: secondHandler)
+        let thirdAction = UIAlertAction(title: thirdTitle, style: thirdStyle, handler: thirdHandler)
+        
+        [firstAction, secondAction, thirdAction].forEach{alertController.addAction($0)}
+        
+        VC.present(alertController, animated: true, completion: nil)
+    }
+    
+    
     public func show1Type(_ VC: UIViewController, title: String, message: String, okTitle: String = "확인", okStyle: UIAlertAction.Style = .default, ok: ((UIAlertAction)->())?) {
         
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
