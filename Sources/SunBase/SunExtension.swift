@@ -59,7 +59,6 @@ public extension UIView {
             case .top:
                 self.simpleTopToast(toast: toast,constant: constatns,duration: duration,delay: delay)
             }
-//            self.willRemoveSubview(toast)
         }
     }
     
@@ -399,50 +398,50 @@ public extension String {
     /// Bool 값에 맞게  DateFormat을 반환
     static func makeDateFormat(year: Bool, month: Bool, day: Bool, dayOfWeek: Bool = false, am_pm: Bool = false, hour: Bool = false,_ fullTime: Bool = true, minute: Bool = false, second: Bool = false, mSecond: Bool = false, mSDigit: Int = 1) -> String {
         
-        var dateFomat = ""
+        var dateFormat = ""
         
         if year {
-            dateFomat = dateFomat + "yyyy"
+            dateFormat = dateFormat + "yyyy"
         }
         if month {
-            dateFomat = dateFomat + "MM"
+            dateFormat = dateFormat + "MM"
         }
         if day {
-            dateFomat = dateFomat + "dd"
+            dateFormat = dateFormat + "dd"
         }
         if dayOfWeek {
-            dateFomat = dateFomat + "EEEEEE"
+            dateFormat = dateFormat + "EEEEEE"
         }
         
         if am_pm {
-            dateFomat = dateFomat + "a"
+            dateFormat = dateFormat + "a"
         }
         
         if fullTime { // 24시간
             if hour {
-                dateFomat = dateFomat + "HH"
+                dateFormat = dateFormat + "HH"
             }
         } else { // 12시간
             if hour {
-                dateFomat = dateFomat + "hh"
+                dateFormat = dateFormat + "hh"
             }
         }
         
         if minute {
-            dateFomat = dateFomat + "mm"
+            dateFormat = dateFormat + "mm"
         }
         
         if second {
-            dateFomat = dateFomat + "ss"
+            dateFormat = dateFormat + "ss"
         }
         
         if mSecond {
             for _ in 0 ..< mSDigit {
-                dateFomat = dateFomat + "S"
+                dateFormat = dateFormat + "S"
             }
         }
         
-        return dateFomat
+        return dateFormat
     }
     
     /// 날짜를 합쳐서 하나의 String으로 반환
